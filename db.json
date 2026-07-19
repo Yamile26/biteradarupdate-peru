@@ -1,0 +1,337 @@
+{
+  "users": [
+    {
+      "id": "u_z9jusxvx2",
+      "email": "dueno.test@example.com",
+      "passwordHash": "$2a$10$zXSlIV.7/sfPGptPipvIBuXEVq7DLRG1bvLywoXKIilOEEI3Zqw4O",
+      "role": "owner",
+      "businessId": "b_aupteu8ym"
+    }
+  ],
+  "businesses": [
+    {
+      "id": "b1",
+      "name": "Cevichería La Mar",
+      "category": "Cevichería",
+      "image": "/images/ceviche.png",
+      "latitude": -12.115,
+      "longitude": -77.038,
+      "ratings": {
+        "foodQuality": 4.9,
+        "service": 4.7,
+        "price": 3.2
+      },
+      "reviews": [
+        {
+          "id": "r1",
+          "userEmail": "maria.l@gmail.com",
+          "comment": "¡El ceviche clásico y el arroz con mariscos son espectaculares! El servicio es excelente, aunque hay que hacer cola si llegas tarde.",
+          "ratings": {
+            "foodQuality": 5,
+            "service": 5,
+            "price": 3
+          },
+          "createdAt": "2026-07-18T10:00:00Z"
+        },
+        {
+          "id": "r2",
+          "userEmail": "carlos.m@yahoo.com",
+          "comment": "Excelente calidad de los pescados. Un poco caro, pero vale totalmente la pena por la frescura de la comida.",
+          "ratings": {
+            "foodQuality": 4.8,
+            "service": 4.4,
+            "price": 3.4
+          },
+          "createdAt": "2026-07-18T11:30:00Z"
+        }
+      ],
+      "aforo": {
+        "actual": 3,
+        "capacidadMaxima": 50
+      },
+      "reservations": [],
+      "promotion": null
+    },
+    {
+      "id": "b2",
+      "name": "Pollería Pardos Chicken",
+      "category": "Pollería",
+      "image": "/images/pollo_brasa.png",
+      "latitude": -12.122,
+      "longitude": -77.0285,
+      "ratings": {
+        "foodQuality": 4.7,
+        "service": 4.5,
+        "price": 4.1
+      },
+      "reviews": [
+        {
+          "id": "r3",
+          "userEmail": "lucho.s@gmail.com",
+          "comment": "El pollo a la brasa con sus papitas fritas es infaltable. Sus salsas son las mejores de Lima.",
+          "ratings": {
+            "foodQuality": 4.7,
+            "service": 4.5,
+            "price": 4.1
+          },
+          "createdAt": "2026-07-17T15:20:00Z"
+        }
+      ],
+      "aforo": {
+        "actual": 14,
+        "capacidadMaxima": 25
+      },
+      "reservations": [],
+      "promotion": {
+        "activa": true,
+        "titulo": "¡Día del Pollo a la Brasa!",
+        "descripcion": "15% de descuento en todo el menú por el Día Nacional del Pollo a la Brasa.",
+        "descuentoPct": 15,
+        "validoHasta": "2026-07-19"
+      }
+    },
+    {
+      "id": "b3",
+      "name": "Sanguchería El Chinito",
+      "category": "Sanguchería",
+      "image": "/images/sangucheria.png",
+      "latitude": -12.1205,
+      "longitude": -77.0305,
+      "ratings": {
+        "foodQuality": 4.8,
+        "service": 4.4,
+        "price": 4.3
+      },
+      "reviews": [
+        {
+          "id": "r4",
+          "userEmail": "ana.p@outlook.com",
+          "comment": "El sánguche de chicharrón con camote frito y harto criollo es una maravilla nacional. Súper recomendado.",
+          "ratings": {
+            "foodQuality": 5,
+            "service": 4,
+            "price": 4
+          },
+          "createdAt": "2026-07-18T08:15:00Z"
+        },
+        {
+          "id": "r5",
+          "userEmail": "pedro.g@gmail.com",
+          "comment": "Buen tamaño y sabor de los sánguches. La atención es rápida y el ambiente es bien tradicional.",
+          "ratings": {
+            "foodQuality": 4.6,
+            "service": 4.8,
+            "price": 4.6
+          },
+          "createdAt": "2026-07-18T09:00:00Z"
+        }
+      ],
+      "aforo": {
+        "actual": 15,
+        "capacidadMaxima": 35
+      },
+      "reservations": [],
+      "promotion": {
+        "activa": true,
+        "titulo": "2x1 en Sánguches",
+        "descripcion": "Segundo sánguche de chicharrón gratis, de 3pm a 6pm.",
+        "descuentoPct": 50,
+        "validoHasta": "2026-08-15"
+      }
+    },
+    {
+      "id": "b4",
+      "name": "Anticuchos Grimanesa",
+      "category": "Anticuchería",
+      "image": "/images/anticuchos.png",
+      "latitude": -12.1225,
+      "longitude": -77.0395,
+      "ratings": {
+        "foodQuality": 4.9,
+        "service": 4.1,
+        "price": 4.2
+      },
+      "reviews": [
+        {
+          "id": "r6",
+          "userEmail": "gustavo.r@gmail.com",
+          "comment": "Los mejores anticuchos de corazón. Suaves, con el punto exacto de ají panca y cocidos a la perfección. La porción es muy buena.",
+          "ratings": {
+            "foodQuality": 4.9,
+            "service": 4.1,
+            "price": 4.2
+          },
+          "createdAt": "2026-07-16T19:40:00Z"
+        }
+      ],
+      "aforo": {
+        "actual": 21,
+        "capacidadMaxima": 30
+      },
+      "reservations": [],
+      "promotion": null
+    },
+    {
+      "id": "b5",
+      "name": "Chifa Unión",
+      "category": "Chifa",
+      "image": "/images/chifa.png",
+      "latitude": -12.125,
+      "longitude": -77.025,
+      "ratings": {
+        "foodQuality": 4.5,
+        "service": 4.3,
+        "price": 4.4
+      },
+      "reviews": [
+        {
+          "id": "r7",
+          "userEmail": "sofia.t@gmail.com",
+          "comment": "Un chifa clásico con platos contundentes. El chaufa especial y el pollo chijaukay son deliciosos.",
+          "ratings": {
+            "foodQuality": 4.5,
+            "service": 4.3,
+            "price": 4.4
+          },
+          "createdAt": "2026-07-18T13:45:00Z"
+        }
+      ],
+      "aforo": {
+        "actual": 6,
+        "capacidadMaxima": 50
+      },
+      "reservations": [],
+      "promotion": null
+    },
+    {
+      "id": "b6",
+      "name": "Picarones Kennedy",
+      "category": "Postres",
+      "image": "/images/picarones.png",
+      "latitude": -12.121,
+      "longitude": -77.0298,
+      "ratings": {
+        "foodQuality": 4.8,
+        "service": 4.6,
+        "price": 4.7
+      },
+      "reviews": [
+        {
+          "id": "r8",
+          "userEmail": "mateo.a@gmail.com",
+          "comment": "Picarones calentitos con abundante miel de chancaca en medio del parque. Una delicia total para las tardes frías.",
+          "ratings": {
+            "foodQuality": 4.8,
+            "service": 4.6,
+            "price": 4.7
+          },
+          "createdAt": "2026-07-18T15:10:00Z"
+        }
+      ],
+      "aforo": {
+        "actual": 24,
+        "capacidadMaxima": 50
+      },
+      "reservations": [],
+      "promotion": {
+        "activa": true,
+        "titulo": "Picarones para llevar",
+        "descripcion": "10% de descuento comprando media docena o más para llevar.",
+        "descuentoPct": 10,
+        "validoHasta": "2026-08-31"
+      }
+    },
+    {
+      "id": "b7",
+      "name": "Restaurante Criollo Panchita",
+      "category": "Criollo",
+      "image": "/images/criollo.png",
+      "latitude": -12.118,
+      "longitude": -77.031,
+      "ratings": {
+        "foodQuality": 4.8,
+        "service": 4.7,
+        "price": 3.5
+      },
+      "reviews": [
+        {
+          "id": "r9",
+          "userEmail": "renzo.v@gmail.com",
+          "comment": "La comida criolla es increíble, porciones gigantescas para compartir. El lomo saltado es el mejor de Miraflores.",
+          "ratings": {
+            "foodQuality": 4.8,
+            "service": 4.7,
+            "price": 3.5
+          },
+          "createdAt": "2026-07-15T21:00:00Z"
+        }
+      ],
+      "aforo": {
+        "actual": 5,
+        "capacidadMaxima": 45
+      },
+      "reservations": [],
+      "promotion": null
+    },
+    {
+      "id": "b8",
+      "name": "Carretilla de Emoliente",
+      "category": "Street Food",
+      "image": "/images/emoliente.png",
+      "latitude": -12.1235,
+      "longitude": -77.028,
+      "ratings": {
+        "foodQuality": 4.4,
+        "service": 4.8,
+        "price": 4.9
+      },
+      "reviews": [
+        {
+          "id": "r10",
+          "userEmail": "diego.f@gmail.com",
+          "comment": "Emoliente bien caliente con alfalfa y limón. El tío es súper amable y prepara sus brebajes al instante.",
+          "ratings": {
+            "foodQuality": 4.4,
+            "service": 4.8,
+            "price": 4.9
+          },
+          "createdAt": "2026-07-18T07:30:00Z"
+        }
+      ],
+      "aforo": {
+        "actual": 17,
+        "capacidadMaxima": 45
+      },
+      "reservations": [],
+      "promotion": {
+        "activa": true,
+        "titulo": "Segundo vaso a mitad de precio",
+        "descripcion": "Lleva un emoliente y el segundo te sale a mitad de precio.",
+        "descuentoPct": 50,
+        "validoHasta": "2026-09-30"
+      }
+    },
+    {
+      "id": "b_aupteu8ym",
+      "name": "Carretilla Doña Rosa",
+      "category": "Street Food",
+      "image": "/images/ceviche.png",
+      "latitude": -12.13,
+      "longitude": -77.03,
+      "ownerId": "u_z9jusxvx2",
+      "ownerEmail": "dueno.test@example.com",
+      "ratings": {
+        "foodQuality": 0,
+        "service": 0,
+        "price": 0
+      },
+      "reviews": [],
+      "aforo": {
+        "actual": 0,
+        "capacidadMaxima": 30
+      },
+      "reservations": [],
+      "promotion": null
+    }
+  ]
+}

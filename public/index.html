@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BiteRadar Perú - Descubre Comida Cercana</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/vendor/leaflet/leaflet.css" />
+  <script src="/vendor/leaflet/leaflet.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <link rel="icon" type="image/svg+xml" href="/images/logo.svg">
+</head>
+<body>
+  <div id="app" class="app-container">
+
+    <!-- ===== HEADER ===== -->
+    <header class="app-header">
+      <div class="logo-container">
+        <img src="/images/logo.svg" alt="BiteRadar Perú" class="logo-badge">
+        <span class="logo-text">Bite<span>Radar</span> <small class="logo-pe">PE</small></span>
+      </div>
+
+      <div class="header-right">
+        <!-- Notification Bell -->
+        <div class="notif-wrapper" id="notif-wrapper">
+          <button class="notif-bell" id="notif-bell" onclick="toggleNotifications()" title="Notificaciones">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+            <span class="notif-badge hidden" id="notif-badge">0</span>
+          </button>
+          <!-- Notifications dropdown -->
+          <div class="notif-dropdown hidden" id="notif-dropdown">
+            <div class="notif-header">
+              <span>🔔 Notificaciones</span>
+              <button onclick="clearNotifications()" class="notif-clear">Limpiar</button>
+            </div>
+            <div id="notif-list" class="notif-list">
+              <p class="notif-empty">No hay notificaciones activas.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Auth Status -->
+        <div id="auth-status-container" class="auth-status"></div>
+      </div>
+    </header>
+
+    <!-- ===== AUTH VIEW ===== -->
+    <main id="auth-view" class="auth-view hidden">
+      <div class="auth-card">
+        <div class="auth-tabs">
+          <button id="tab-login" class="auth-tab active" onclick="switchAuthTab('login')">Iniciar Sesión</button>
+          <button id="tab-register" class="auth-tab" onclick="switchAuthTab('register')">Registrarse</button>
+        </div>
+        <form id="login-form" class="auth-form" onsubmit="handleLogin(event)">
+          <h2>¡Hola de nuevo!</h2>
+          <p class="auth-subtitle">Descubre los locales mejor valorados cerca de ti en Lima y todo el Perú</p>
+          <div class="form-group">
+            <label for="login-email">Correo Electrónico</label>
+            <input type="email" id="login-email" required placeholder="correo@ejemplo.com">
+          </div>
+          <div class="form-group">
+            <label for="login-password">Contraseña</label>
+            <input type="password" id="login-password" required placeholder="••••••••">
+          </div>
+          <div id="login-error" class="error-message hidden"></div>
+          <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+        </form>
+        <form id="register-form" class="auth-form hidden" onsubmit="handleRegister(event)">
+          <h2>Crear Cuenta</h2>
+          <p class="auth-subtitle">Regístrate para explorar huariques y restaurantes cercanos</p>
+
+          <div class="form-group">
+            <label>¿Qué te trae a BiteRadar?</label>
+            <div class="account-type-toggle">
+              <button type="button" id="account-type-client" class="account-type-btn active" onclick="selectAccountType('client')">
+                <span class="account-type-emoji">🍽️</span>
+                <span>Busco comida</span>
+              </button>
+              <button type="button" id="account-type-owner" class="account-type-btn" onclick="selectAccountType('owner')">
+                <span class="account-type-emoji">🏪</span>
+                <span>Tengo un negocio</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="register-email">Correo Electrónico</label>
+            <input type="email" id="register-email" required placeholder="correo@ejemplo.com">
+          </div>
+          <div class="form-group">
+            <label for="register-password">Contraseña</label>
+            <input type="password" id="register-password" required placeholder="••••••••">
+          </div>
+          <div class="form-group">
+            <label for="register-confirm-password">Confirmar Contraseña</label>
+            <input type="password" id="register-confirm-password" required placeholder="••••••••">
+          </div>
+
+          <!-- ===== OWNER-ONLY FIELDS ===== -->
+          <div id="owner-fields" class="owner-fields hidden">
+            <div class="owner-fields-divider">Datos de tu negocio</div>
+
+            <div class="form-group">
+              <label for="register-business-name">Nombre del local</label>
+              <input type="text" id="register-business-name" placeholder="Ej. Carretilla Doña Rosa">
+            </div>
+
+            <div class="form-group">
+              <label for="register-business-category">Tipo de comida</label>
+              <select id="register-business-category">
+                <option value="Cevichería">Cevichería</option>
+                <option value="Pollería">Pollería</option>
+                <option value="Sanguchería">Sanguchería</option>
+                <option value="Anticuchería">Anticuchería</option>
+                <option value="Chifa">Chifa</option>
+                <option value="Postres">Postres</option>
+                <option value="Criollo">Criollo</option>
+                <option value="Street Food">Street Food</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="register-business-logo">Logo de tu local o carrito</label>
+              <div class="logo-upload-box">
+                <img id="logo-preview" class="logo-preview hidden" alt="Vista previa del logo">
+                <label for="register-business-logo" class="logo-upload-label">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  <span id="logo-upload-text">Subir logo (opcional)</span>
+                </label>
+                <input type="file" id="register-business-logo" accept="image/*" class="hidden" onchange="handleLogoFileChange(event)">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Ubica tu negocio en el mapa</label>
+              <p class="owner-map-hint">Haz clic en el mapa para marcar dónde encuentran tu local o carrito.</p>
+              <div id="register-map" class="register-map"></div>
+              <p id="owner-location-text" class="owner-location-text">Aún no marcaste una ubicación.</p>
+            </div>
+          </div>
+
+          <div id="register-error" class="error-message hidden"></div>
+          <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
+        </form>
+      </div>
+    </main>
+
+    <!-- ===== MAIN APP VIEW ===== -->
+    <main id="main-view" class="main-view hidden">
+
+      <!-- Tab Navigation -->
+      <nav class="main-tabs">
+        <button class="main-tab active" id="tab-explore" onclick="switchMainTab('explore')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          Explorar Huariques
+        </button>
+        <button class="main-tab" id="tab-calendar" onclick="switchMainTab('calendar')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Calendario Gastronómico
+        </button>
+      </nav>
+
+      <!-- ===== EXPLORE TAB ===== -->
+      <div id="explore-view">
+        <!-- Promotions Carousel -->
+        <section id="promo-section" class="promo-section hidden">
+          <div class="promo-section-header">
+            <h2>🔥 Promociones y Descuentos</h2>
+          </div>
+          <div id="promo-carousel" class="promo-carousel"></div>
+        </section>
+
+        <!-- Location Bar -->
+        <section class="location-bar">
+          <div class="location-info">
+            <svg class="icon animate-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
+            <span id="location-text">Detectando tu ubicación...</span>
+          </div>
+          <button class="btn btn-secondary" onclick="requestLocation()">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+            Actualizar Ubicación
+          </button>
+        </section>
+
+        <!-- Manual Location Search -->
+        <section class="location-search-section">
+          <div class="location-search-row">
+            <div class="location-search-box">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <input type="text" id="address-search-input" placeholder="Busca tu dirección o distrito (ej. Miraflores, San Isidro...)" autocomplete="off">
+            </div>
+            <button class="btn-link-toggle" id="toggle-ai-location" onclick="toggleLocationChat()">
+              💬 ¿No la encuentras? Descríbela
+            </button>
+          </div>
+          <div id="address-suggestions" class="address-suggestions hidden"></div>
+
+          <div id="location-chat-box" class="location-chat-box hidden">
+            <p class="location-chat-hint">Cuéntame con tus palabras dónde estás (un distrito, una avenida, un local conocido, tu universidad...) y trato de ubicarte.</p>
+            <div class="location-chat-input-row">
+              <textarea id="location-chat-text" placeholder="Ej: Estoy cerca a la UNI, en el Rímac / por el óvalo de Miraflores..."></textarea>
+              <button class="btn btn-primary" onclick="submitLocationChat()">Ubicarme</button>
+            </div>
+            <div id="location-chat-result"></div>
+          </div>
+        </section>
+
+        <!-- Map -->
+        <section class="map-section">
+          <div id="map"></div>
+          <div id="map-legend" class="map-legend"></div>
+        </section>
+
+        <!-- Dashboard -->
+        <div class="dashboard-layout">
+          <!-- Filters Sidebar -->
+          <aside class="filters-sidebar">
+            <div class="filters-card">
+              <h3>Filtros</h3>
+              <div class="filter-group">
+                <label for="filter-category">Tipo de Comida</label>
+                <select id="filter-category" onchange="fetchBusinesses()">
+                  <option value="all">Todas las Categorías</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label for="filter-rating">Valoración Mínima</label>
+                <select id="filter-rating" onchange="fetchBusinesses()">
+                  <option value="0">Cualquier Valoración</option>
+                  <option value="4">4.0+ Estrellas</option>
+                  <option value="4.5">4.5+ Estrellas</option>
+                  <option value="4.8">4.8+ Estrellas</option>
+                </select>
+              </div>
+              <div class="filter-group">
+                <label for="filter-sort">Ordenar Por</label>
+                <select id="filter-sort" onchange="fetchBusinesses()">
+                  <option value="rating">Mejor Valorados</option>
+                  <option value="positivo">Más Comentarios Positivos</option>
+                  <option value="distancia">Más Cercanos</option>
+                </select>
+              </div>
+              <div class="filter-info-box">
+                <svg class="icon text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                <p>Ordenados por valoración más alta de forma descendente.</p>
+              </div>
+            </div>
+          </aside>
+
+          <!-- Business List -->
+          <section class="businesses-section">
+            <div class="section-header">
+              <h2>Huariques y Restaurantes Cercanos</h2>
+              <span id="results-count" class="results-badge">0 encontrados</span>
+            </div>
+            <div id="loading-spinner" class="spinner-container">
+              <div class="spinner"></div>
+              <p>Buscando las mejores opciones...</p>
+            </div>
+            <div id="empty-state" class="empty-state hidden">
+              <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <h3>No se encontraron locales</h3>
+              <p>Intenta ampliar tus filtros o actualizar tu ubicación.</p>
+            </div>
+            <div id="businesses-list" class="businesses-list"></div>
+          </section>
+        </div>
+      </div>
+
+      <!-- ===== CALENDAR TAB ===== -->
+      <div id="calendar-view" class="hidden">
+        <div class="calendar-header">
+          <h2>📅 Calendario Gastronómico Peruano</h2>
+          <p>Las festividades más importantes de la comida peruana a lo largo del año.</p>
+        </div>
+        <div id="festivities-list" class="festivities-grid">
+          <!-- Filled dynamically -->
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

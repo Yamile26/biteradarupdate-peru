@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <path id="arcTop" d="M 65,200 A 135,135 0 0 1 335,200" />
+    <path id="arcBottom" d="M 108,300 A 105,105 0 0 0 292,300" />
+  </defs>
+
+  <!-- background -->
+  <circle cx="200" cy="200" r="195" fill="#FBF4E4"/>
+
+  <!-- outer rings -->
+  <circle cx="200" cy="200" r="188" fill="none" stroke="#E0392B" stroke-width="7"/>
+  <circle cx="200" cy="200" r="160" fill="none" stroke="#F0943A" stroke-width="3.5"/>
+
+  <!-- curved text -->
+  <text font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="27" letter-spacing="1.5" fill="#E0392B">
+    <textPath href="#arcTop" startOffset="50%" text-anchor="middle">ENCUENTRA COMIDA</textPath>
+  </text>
+  <text font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="30" letter-spacing="2" fill="#1D6FB8">
+    <textPath href="#arcBottom" startOffset="50%" text-anchor="middle">EN PERÚ</textPath>
+  </text>
+
+  <!-- corn (choclo) - bottom left, kept -->
+  <g transform="translate(72,238) rotate(-18)">
+    <path d="M0,0 C -6,22 -6,44 0,60 C 12,58 20,42 18,20 C 17,10 10,2 0,0 Z" fill="#F0943A" stroke="#7A3A12" stroke-width="3"/>
+    <g stroke="#7A3A12" stroke-width="2">
+      <line x1="-3" y1="8" x2="10" y2="10"/>
+      <line x1="-4" y1="18" x2="12" y2="20"/>
+      <line x1="-4" y1="28" x2="13" y2="30"/>
+      <line x1="-3" y1="38" x2="12" y2="39"/>
+      <line x1="-1" y1="48" x2="10" y2="47"/>
+    </g>
+    <path d="M-4,-2 C -10,-14 -6,-24 2,-30 C 6,-18 4,-8 -4,-2 Z" fill="#5B8A3A" stroke="#7A3A12" stroke-width="2.5"/>
+  </g>
+
+  <!-- fish - upper right of pin -->
+  <g transform="translate(283,158) rotate(-8)">
+    <path d="M0,0 C 14,-10 34,-10 46,0 C 34,10 14,10 0,0 Z" fill="#2E9BD6" stroke="#0F5A85" stroke-width="3"/>
+    <path d="M0,0 L -12,-9 L -12,9 Z" fill="#2E9BD6" stroke="#0F5A85" stroke-width="3" stroke-linejoin="round"/>
+    <circle cx="36" cy="-1" r="2.4" fill="#0F5A85"/>
+  </g>
+
+  <!-- llama - bottom right, kept -->
+  <g transform="translate(305,255)">
+    <path d="M6,4 C4,-14 8,-30 4,-42 C2,-48 -6,-50 -8,-44 C -10,-38 -4,-34 -4,-28 L -6,-6 Z" fill="#E0392B" stroke="#7A1E14" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M-8,-44 C -12,-50 -12,-58 -8,-62 C -4,-58 -2,-50 -4,-44 Z" fill="#E0392B" stroke="#7A1E14" stroke-width="2.5"/>
+    <ellipse cx="-9" cy="-46" rx="2" ry="3" fill="#7A1E14"/>
+    <path d="M-6,-6 C -14,-2 -22,-2 -30,-8 C -28,4 -18,10 -6,8 C 4,10 14,4 16,-8 C 8,-2 2,-2 -6,-6 Z" fill="#E0392B" stroke="#7A1E14" stroke-width="3" stroke-linejoin="round"/>
+    <rect x="-24" y="-4" width="10" height="4" rx="1.5" fill="#F0943A" stroke="#7A1E14" stroke-width="1.5"/>
+    <g stroke="#7A1E14" stroke-width="3" stroke-linecap="round">
+      <line x1="-18" y1="6" x2="-20" y2="20"/>
+      <line x1="-6" y1="8" x2="-6" y2="22"/>
+      <line x1="6" y1="6" x2="8" y2="20"/>
+    </g>
+  </g>
+
+  <!-- bowl -->
+  <g transform="translate(200,240)">
+    <path d="M-72,0 C -72,34 -40,54 0,54 C 40,54 72,34 72,0 Z" fill="#F0943A" stroke="#7A3A12" stroke-width="4"/>
+    <path d="M-72,0 C -72,34 -40,54 0,54 C 40,54 72,34 72,0" fill="none" stroke="#7A3A12" stroke-width="4"/>
+    <!-- andean stripe pattern -->
+    <g stroke="#7A3A12" stroke-width="2" fill="none">
+      <path d="M-62,10 L-52,20 L-42,10 L-32,20 L-22,10 L-12,20 L0,10 L12,20 L22,10 L32,20 L42,10 L52,20 L62,10" />
+    </g>
+    <rect x="-72" y="2" width="144" height="9" fill="#1D6FB8" opacity="0.85"/>
+    <!-- spiral (chakana-inspired) -->
+    <g transform="translate(0,26)">
+      <rect x="-14" y="-24" width="28" height="52" rx="8" fill="#FBF4E4" stroke="#7A3A12" stroke-width="4"/>
+      <path d="M0,-14 a10,10 0 1 1 -8,16 a5,5 0 1 0 4,-8" fill="none" stroke="#7A3A12" stroke-width="4" stroke-linecap="round"/>
+    </g>
+  </g>
+
+  <!-- location pin -->
+  <g transform="translate(200,150)">
+    <path d="M0,-70 C -34,-70 -58,-46 -58,-14 C -58,26 0,74 0,74 C 0,74 58,26 58,-14 C 58,-46 34,-70 0,-70 Z" fill="#E0392B" stroke="#7A1E14" stroke-width="5"/>
+    <rect x="-10" y="-68" width="20" height="128" fill="#FBF4E4"/>
+    <!-- fork -->
+    <g transform="translate(-14,-6)" stroke="#FBF4E4" stroke-width="5" stroke-linecap="round">
+      <line x1="0" y1="-34" x2="0" y2="34"/>
+      <line x1="-7" y1="-34" x2="-7" y2="-16"/>
+      <line x1="7" y1="-34" x2="7" y2="-16"/>
+      <line x1="-7" y1="-16" x2="0" y2="-8"/>
+      <line x1="7" y1="-16" x2="0" y2="-8"/>
+    </g>
+    <!-- spoon -->
+    <g transform="translate(16,-6)">
+      <ellipse cx="0" cy="-24" rx="9" ry="13" fill="#FBF4E4"/>
+      <rect x="-3" y="-12" width="6" height="46" rx="3" fill="#FBF4E4"/>
+    </g>
+  </g>
+
+  <!-- sparkle accent -->
+  <path d="M112,150 l4,10 l10,4 l-10,4 l-4,10 l-4,-10 l-10,-4 l10,-4 Z" fill="#F0943A"/>
+</svg>
